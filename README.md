@@ -1,1 +1,1 @@
-# scala_native_lamda_test
+# scala_native_lambda_test
