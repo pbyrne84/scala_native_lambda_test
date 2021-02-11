@@ -1,0 +1,1 @@
+# scala_native_lamda_test
