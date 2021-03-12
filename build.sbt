@@ -11,8 +11,11 @@ libraryDependencies ++= Vector(
   "org.slf4j" % "slf4j-log4j12" % "1.7.30",
   "org.slf4j" % "jcl-over-slf4j" % "1.7.30",
   "org.apache.logging.log4j" % "log4j-api" % "2.13.0",
-  "org.apache.logging.log4j" % "log4j-core" % "2.13.0"
+  "org.apache.logging.log4j" % "log4j-core" % "2.13.0",
+  "org.scalatest" %% "scalatest" % "3.0.8" % Test
 )
+
+test in assembly := {}
 
 //change name in generateConfig.sh if changed
 lazy val jarName = "graalvm-scala-lambda.jar"
@@ -45,6 +48,13 @@ native-image  --no-server \
 java  -agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image -jar target/scala-2.13/graalvm-scala-lambda.jar
  */
 
+//size is 13,808,984 before generating the confs via tests
+//size is 15,390,184 after
+
+fork := true
+
+javaOptions in Test += "-agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image"
+
 nativeImageOptions ++= List(
   "--no-server",
   "--verbose",
@@ -53,4 +63,13 @@ nativeImageOptions ++= List(
   //  "--report-unsupported-elements-at-runtime",
   //"--static",
   "-H:ConfigurationFileDirectories=src/main/resources/META-INF/native-image"
+)
+
+testOptions in Test += Tests.Cleanup(
+  () =>
+    (for {
+      _ <- CleanNativeImageConf.cleanResourceBundles(List("org/scalatest/.*"))
+      _ <- CleanNativeImageConf.cleanReflectConfig(List("org\\.scalatest.*"))
+    } yield true).left
+      .map(error => throw error)
 )

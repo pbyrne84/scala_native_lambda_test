@@ -9,3 +9,4 @@ out/
 .bsp/
 dist/
 graalvm-scala-lambda
+scala_native_lambda.zip

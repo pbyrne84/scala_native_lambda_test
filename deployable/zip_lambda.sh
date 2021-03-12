@@ -1,0 +1,1 @@
+zip scala_native_lambda.zip graalvm-scala-lambda bootstrap

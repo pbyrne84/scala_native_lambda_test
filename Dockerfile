@@ -1,0 +1,20 @@
+FROM amazonlinux:2
+RUN yum update
+RUN yum install -y unzip zip tar sudo
+RUN curl -s "https://get.sdkman.io" | bash
+RUN pwd
+RUN ls -l
+RUN cat ~/.sdkman/etc/config
+RUN source ~/.sdkman/bin/sdkman-init.sh && sdk list java
+RUN source ~/.sdkman/bin/sdkman-init.sh && sdk install java 21.1.0.r11-grl
+RUN source ~/.sdkman/bin/sdkman-init.sh && sdk install sbt
+RUN source ~/.sdkman/bin/sdkman-init.sh && java --version
+RUN source ~/.sdkman/bin/sdkman-init.sh && gu install native-image
+RUN yum install -y -q yum-utils
+RUN yum-config-manager --enable epel > /dev/null
+RUN yum install -y zlib1g-dev gcc glibc-devel
+RUN yum -y group install "development tools"
+RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+RUN yum install -y gcc-c++ binutils-devel glibc-devel glibc-static zlib-static
+
+RUN mkdir ~/project_mount
