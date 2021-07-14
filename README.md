@@ -82,7 +82,7 @@ docker build -t amazon_scala_vm .
 docker run --name amazon_lambda_compile --mount src="$(pwd)",target=/root/project_mount,type=bind -t -d amazon_scala_vm
 ```
 
-3. We get docker to build it
+3. We get login to docker to build it
 ```bash
 docker exec -it amazon_lambda_compile bash
 ```
@@ -96,13 +96,22 @@ We should then get an executable that can be run in amazon lambda in the root of
 graalvm-scala-lambda
 ```
 
-Note:
-In theory we should be able to run
-```bash
-docker exec -it  amazon_lambda_compile  cd /root/project_mount;./linux_build.sh
+4. We can simply build it from the outside
+```
+docker exec -it  amazon_lambda_compile  /root/project_mount/linux_build.sh
 ```
 
-This behaves differently and doesn't work. I am a docker noooooob.
+**linux_build.sh** navigates directly to the script dir with 
+```
+cd "$(dirname "$0")"
+```
+And then runs 
+```bash
+source ~/.bashrc
+```
+to init sdkman etc so things can run.
+
+Before I tried to cd and then run the file but that behaved erroneously.
 
 
 ## Running the file in aws lambda

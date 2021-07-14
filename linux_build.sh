@@ -1,3 +1,4 @@
+#!/bin/bash
 : '
 scp -P 5679 ec2-user@127.0.0.1:/home/ec2-user/development/scala_native_lambda_test/graalvm-scala-lambda ./
 zip -j graalvm-scala-lambda.zip graalvm-scala-lambda bootstrap
@@ -21,6 +22,8 @@ aws lambda create-function --function-name pb-lambda-test-graalvm-scala-lambda \
 aws lambda invoke --function-name pb-lambda-test-graalvm-scala-lambda --payload '{"text":"Hello"}' response.txt --cli-binary-format raw-in-base64-out
 '
 
+cd "$(dirname "$0")"
+source ~/.bashrc
 native-image  --no-server \
   --no-fallback \
   --allow-incomplete-classpath \
