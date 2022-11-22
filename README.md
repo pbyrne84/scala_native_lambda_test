@@ -23,7 +23,7 @@ I would personally not use native images for things like http servers as they ca
 
 ## Graalvm, jdk and reflection
 When building a native image only the code from explicit execution calls gets auto bound in. Calls that are done via reflection are ignored,
-java based dependencies tend to use reflection a lot more so all things are not compiled in. This leads to NoSuchMethodException being thrown
+java based dependencies tend to use reflection so a lot more so all things are not compiled in. This leads to NoSuchMethodException being thrown
 and other similar errors exampled here <https://github.com/oracle/graal/issues/1261>. There are a set of configuration files that can be
 added to the resources that can manage these sorts of problems.
 
