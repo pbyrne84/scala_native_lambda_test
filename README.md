@@ -2,18 +2,17 @@
 
 ## Purpose of the experiment
 Startup times with jvm based languages can make scala non-ideal for lambdas that have a high call rate that are expected to finish quickly such
-as sqs message consumption. There is some argument for anything of real complication alpakka is a better solution as lambdas seem like
-they are prone to being very happy path oriented. They seem to be very unpleasant to debug in cloudtrail etc. They are also not very nice to deploy.
+as sqs message consumption. There is some argument for anything of real complication something dockerized sqs stream processing is a better
+solution as lambdas seem like they are prone to being very happy path oriented. They also seem to be very unpleasant to debug in cloudtrail etc. 
+They are also not as nice to deploy.
 
-Hopefully this investigation helps with the perceived need to jump to other languages for things that need to be easily well tested etc. Ability to  
-test easily and elegantly while also allowing change by anyone is usually where languages fall down. Easily and elegantly is subjective to the observer
-due to their ability, priorities and personal philosophy.
+Hopefully this investigation helps with the perceived need to jump to other languages for things that need to be easily well tested etc. 
+Ability to test easily and elegantly while also allowing change by anyone is usually where languages fall down. Easily and elegantly is
+subjective to the observer due to their ability, priorities and personal philosophy.
 
 Rust could be an interesting experiment at some point.
 
-I would personally not use native images for things like http servers as we rely on runtime instrumentation and that will break. We would have to look
-at getting the instrumentation in as they would have to be converted to a native implementation as well within the fat jar we convert.
-
+I would personally not use native images for things like http servers as they can rely on runtime instrumentation and that will break.
 
 ## Technologies
 1. Docker image based upon amazonlinux:2 (CentOS based) with dev tools as amazonlinux is a very light image
@@ -23,15 +22,17 @@ at getting the instrumentation in as they would have to be converted to a native
 
 
 ## Graalvm, jdk and reflection
-Building a native image only the code from explicit execution calls gets auto bound in. Calls that are done via reflection which java based dependencies
-have a lot more favour of doing that so all things are not compiled in. This leads to NoSuchMethodException being thrown and other similar errors exampled here
-<https://github.com/oracle/graal/issues/1261>. There are a set of configuration files that can be added to the resources that can manage these sorts of problems.
+When building a native image only the code from explicit execution calls gets auto bound in. Calls that are done via reflection are ignored,
+java based dependencies tend to use reflection a lot more so all things are not compiled in. This leads to NoSuchMethodException being thrown
+and other similar errors exampled here <https://github.com/oracle/graal/issues/1261>. There are a set of configuration files that can be
+added to the resources that can manage these sorts of problems.
 
 ### reflect-config.json
 <https://www.graalvm.org/reference-manual/native-image/Reflection/>
 
-This is very boring to manually manage but dependencies can be added here. There are ways to make this much less boring only if you find good test coverage
-non-boring.
+This is very boring to manually manage but dependencies can be added here. There are ways to make this much less boring only 
+if you find good test coverage non-boring. You can get the tests to call the paths relying on reflection, then the
+calls get picked up in a repeatable fashion.
 
 ### agentlib:native-image-agent
 The **agentlib:native-image-agent** instrumentation scans the execution paths making note of things like reflection calls generating all the configuration.
@@ -47,8 +48,8 @@ javaOptions in Test += "-agentlib:native-image-agent=config-output-dir=src/main/
 
 
 #### Cleaning up the configs post running tests
-The issue with running the instrumentation while running tests in sbt is we pick up stragglers that break the conversion. To solve this problem
-I created a test shutdown hook that filters things out via circe.
+The issue with running the instrumentation while running tests in sbt is we pick up stragglers that break the conversion. 
+To solve this problem I created a test shutdown hook that filters things out via circe.
 
 ```scala
 testOptions in Test += Tests.Cleanup(
