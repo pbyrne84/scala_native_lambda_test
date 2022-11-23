@@ -1,6 +1,6 @@
 name := "scala_native_lambda_test"
 
-scalaVersion := "2.13.4"
+scalaVersion := "2.13.10"
 //https://medium.com/@mateuszstankiewicz/aws-lambda-with-scala-and-graalvm-eb1cc46b7740
 //https://blogs.oracle.com/developers/building-cross-platform-native-images-with-graalvm
 //https://www.bks2.com/2019/05/17/scala-lambda-functions-with-graalvm/
