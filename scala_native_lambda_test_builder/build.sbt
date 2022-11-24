@@ -1,4 +1,4 @@
-name := "scala_native_lambda_test"
+name := "scala_native_lambda_test_builder"
 
 scalaVersion := "2.13.10"
 //https://medium.com/@mateuszstankiewicz/aws-lambda-with-scala-and-graalvm-eb1cc46b7740
@@ -15,7 +15,11 @@ libraryDependencies ++= Vector(
   "org.scalatest" %% "scalatest" % "3.0.8" % Test
 )
 
-test in assembly := {}
+assembly / test := {}
+
+logBuffered := false
+
+logLevel := Level.Info
 
 //change name in generateConfig.sh if changed
 lazy val jarName = "graalvm-scala-lambda.jar"
@@ -24,7 +28,7 @@ lazy val myNativeImageProject = (project in file("."))
   .enablePlugins(NativeImagePlugin)
   .settings(
     Compile / mainClass := Some("lambda.Main"),
-    assemblyJarName in assembly := jarName
+    assembly / assemblyJarName := jarName
   )
 
 // sudo apt install zlib1g-dev gcc
@@ -53,7 +57,7 @@ java  -agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF
 
 fork := true
 
-javaOptions in Test += "-agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image"
+Test / javaOptions += "-agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image"
 
 nativeImageOptions ++= List(
   "--no-server",
@@ -65,11 +69,12 @@ nativeImageOptions ++= List(
   "-H:ConfigurationFileDirectories=src/main/resources/META-INF/native-image"
 )
 
-testOptions in Test += Tests.Cleanup(
+Test / testOptions += Tests.Cleanup(
   () =>
     (for {
-      _ <- CleanNativeImageConf.cleanResourceBundles(List("org/scalatest/.*"))
-      _ <- CleanNativeImageConf.cleanReflectConfig(List("org\\.scalatest.*"))
+      _ <- CleanReflectionConfig.filterAndRewrite(includeRegexes = List.empty,
+                                                  bundleRegexes = List(".*ScalaTestBundle.*"),
+                                                  nameRegexes = List("org.scalatest.*", "(.{0,2})sbt.*"))
     } yield true).left
       .map(error => throw error)
 )
