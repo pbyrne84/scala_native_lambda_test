@@ -34,5 +34,8 @@ native-image  --no-server \
   -H:+ReportExceptionStackTraces \
   -H:TraceClassInitialization=true \
   -jar target/scala-2.13/graalvm-scala-lambda.jar
+ls -l
+./graalvm-scala-lambda
+
 
 

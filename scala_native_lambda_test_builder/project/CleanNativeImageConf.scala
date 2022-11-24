@@ -1,4 +1,4 @@
-import io.circe.{Decoder, Encoder, Json}
+import io.circe.{Decoder, DecodingFailure, Encoder, Json}
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 
 import scala.io.Source
@@ -18,6 +18,9 @@ object ResourceConfig {
 
 case class ResourceConfig(resources: List[ResourceBundle])
 
+case class DetailedDecodingError(message: String, json: String, cause: Throwable)
+    extends RuntimeException(s"$message: caused by $json", cause)
+
 object CleanNativeImageConf {
   import io.circe.syntax._
 
@@ -25,8 +28,11 @@ object CleanNativeImageConf {
     val fileName = "src/main/resources/META-INF/native-image/resource-config.json"
 
     for {
-      content <- readFile(fileName)
-      resourceConfig <- io.circe.parser.decode[ResourceConfig](content)
+      json <- readFile(fileName)
+      resourceConfig <- io.circe.parser
+        .decode[ResourceConfig](json)
+        .left
+        .map(error => DetailedDecodingError("Failed decoding to ResourceConfig", json, error))
       filteredJson = filterValuesFromResourceConfig(resourceConfig, invalidBundleRegexPatterns)
       _ <- writeFile(fileName, filteredJson)
     } yield true
@@ -66,7 +72,10 @@ object CleanNativeImageConf {
     } yield true
   }
 
-  private def filterValuesFromReflectConfigJson(json: Json, invalidRegexPatterns: List[String]) = {
+  private def filterValuesFromReflectConfigJson(
+      json: Json,
+      invalidRegexPatterns: List[String]
+  ): Either[DecodingFailure, List[Json]] = {
     def filter(json: Json) = {
       def compare(nameJson: Json): Boolean = {
         nameJson.as[String].map { name =>
