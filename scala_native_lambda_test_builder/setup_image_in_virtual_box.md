@@ -1,7 +1,7 @@
 # Download virtualbox image
 You can use docker for this but it is easier to experiment and debug in a mutable image then solidify into a docker after.
 The whole thing can turn into a docker adventure versus a graalvm image build adventure. We need to compile the image
-natively etc. Graalvm cannot pick reflectively loaded libraries out so we need to build a canary to froce loading while the image
+natively etc. Graalvm cannot pick reflectively loaded libraries so we need to build a canary to force loading while the image
 is built.
 
 1. Download https://cdn.amazonlinux.com/os-images/2.0.20210219.0/
