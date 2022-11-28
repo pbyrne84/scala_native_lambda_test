@@ -48,12 +48,18 @@ object CleanReflectionConfig {
       directory.list().foreach { file =>
         logger.info("Config file - " + file)
 
-        Using(Source.fromFile(new File(directoryPath + file))) { openFile =>
-          val contents = openFile.getLines.toList.mkString
-          logger.info("Contents :" + contents)
-        }.toEither.left.map(error => throw error)
+        val configLocation = new File(directoryPath + file)
+        if (configLocation.isFile) {
+          Using(Source.fromFile(configLocation)) { openFile =>
+            val contents = openFile.getLines.toList.mkString
+            logger.info("Contents :" + contents)
+          }.toEither.left.map(error => throw error)
 
-        logger.info("")
+          logger.info("")
+        } else {
+          logger.info(s"Skipping directory ${configLocation.getAbsoluteFile}")
+        }
+
       }
     }.toEither
 
@@ -88,18 +94,27 @@ object CleanReflectionConfig {
 
   private def updatedNamedConfigs(nameRegexes: List[String]): Either[Throwable, Boolean] = {
     for {
-      _ <- processNamedConfig(reflectionConfigFileLocation, nameRegexes)
-      _ <- processNamedConfig(serializationConfigFileLocation, nameRegexes)
+      _ <- processReflectionConfig(reflectionConfigFileLocation, nameRegexes)
+      _ <- processSerializationConfig(serializationConfigFileLocation, nameRegexes)
     } yield true
   }
 
-  private def processNamedConfig(filePath: String, nameRegexes: List[String]): Either[Throwable, Boolean] = {
+  private def processReflectionConfig(filePath: String, nameRegexes: List[String]): Either[Throwable, Boolean] = {
+    cleanJsonFile(filePath, nameRegexes, NamedConfigFilter.filterOutReflectConfigs)
+  }
 
+  private def cleanJsonFile(filePath: String,
+                            nameRegexes: List[String],
+                            call: (String, List[String]) => Either[Throwable, Json]) = {
     for {
       configJson <- readFile(filePath)
-      filteredJson <- NamedConfigFilter.filterOutConfigs(configJson, nameRegexes)
+      filteredJson <- call(configJson, nameRegexes)
       _ <- writeFile(filePath, filteredJson.asJson)
     } yield true
+  }
+
+  private def processSerializationConfig(filePath: String, nameRegexes: List[String]): Either[Throwable, Boolean] = {
+    cleanJsonFile(filePath, nameRegexes, NamedConfigFilter.filterOutSerializeConfigs)
   }
 
 }

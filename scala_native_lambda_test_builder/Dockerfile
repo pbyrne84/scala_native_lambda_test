@@ -6,7 +6,7 @@ RUN pwd
 RUN ls -l
 RUN cat ~/.sdkman/etc/config
 RUN source ~/.sdkman/bin/sdkman-init.sh && sdk list java
-RUN source ~/.sdkman/bin/sdkman-init.sh && sdk install java 21.1.0.r11-grl
+RUN source ~/.sdkman/bin/sdkman-init.sh && sdk install java 22.3.r11-grl
 RUN source ~/.sdkman/bin/sdkman-init.sh && sdk install sbt
 RUN source ~/.sdkman/bin/sdkman-init.sh && java --version
 RUN source ~/.sdkman/bin/sdkman-init.sh && gu install native-image

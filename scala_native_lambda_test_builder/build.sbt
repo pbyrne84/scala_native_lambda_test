@@ -5,14 +5,29 @@ scalaVersion := "2.13.10"
 //https://blogs.oracle.com/developers/building-cross-platform-native-images-with-graalvm
 //https://www.bks2.com/2019/05/17/scala-lambda-functions-with-graalvm/
 
+val testcontainersScalaVersion = "0.40.11"
+
+//assembly / assemblyMergeStrategy := MergeStrategy.last
+
+ThisBuild / assemblyMergeStrategy := {
+  case "application.conf" => MergeStrategy.concat
+  case x =>
+    val oldStrategy = (ThisBuild / assemblyMergeStrategy).value
+    oldStrategy(x)
+}
+
 //native-image-agent
 libraryDependencies ++= Vector(
-  "com.amazonaws" % "aws-lambda-java-core" % "1.2.1",
+  /*  "software.amazon.awssdk" % "auth" % "2.18.25",
+  "software.amazon.awssdk" % "lambda" % "2.18.25",*/
   "org.slf4j" % "slf4j-log4j12" % "1.7.30",
   "org.slf4j" % "jcl-over-slf4j" % "1.7.30",
   "org.apache.logging.log4j" % "log4j-api" % "2.13.0",
   "org.apache.logging.log4j" % "log4j-core" % "2.13.0",
-  "org.scalatest" %% "scalatest" % "3.0.8" % Test
+  "com.amazonaws" % "aws-java-sdk-core" % "1.12.350" % Test,
+  "org.scalatest" %% "scalatest" % "3.2.14" % Test,
+  "com.dimafeng" %% "testcontainers-scala-scalatest" % testcontainersScalaVersion % "test",
+  "com.dimafeng" %% "testcontainers-scala-localstack" % testcontainersScalaVersion % "test"
 )
 
 assembly / test := {}
@@ -69,12 +84,15 @@ nativeImageOptions ++= List(
   "-H:ConfigurationFileDirectories=src/main/resources/META-INF/native-image"
 )
 
-Test / testOptions += Tests.Cleanup(
-  () =>
-    (for {
-      _ <- CleanReflectionConfig.filterAndRewrite(includeRegexes = List.empty,
-                                                  bundleRegexes = List(".*ScalaTestBundle.*"),
-                                                  nameRegexes = List("org.scalatest.*", "(.{0,2})sbt.*"))
-    } yield true).left
-      .map(error => throw error)
+Test / testOptions ++= List(
+  Tests.Cleanup(
+    () =>
+      (for {
+        _ <- CleanReflectionConfig.filterAndRewrite(includeRegexes = List.empty,
+                                                    bundleRegexes = List(".*ScalaTestBundle.*"),
+                                                    nameRegexes =
+                                                      List("org.scalatest.*", "(.{0,2})sbt.*", "com.dimafeng.*"))
+      } yield true).left
+        .map(error => throw error)
+  )
 )

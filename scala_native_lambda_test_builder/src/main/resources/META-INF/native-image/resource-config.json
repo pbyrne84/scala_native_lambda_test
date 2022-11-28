@@ -1,13 +1,14 @@
 {
-  "resources" : [
-    {
-      "pattern" : "library.properties"
-    },
-    {
-      "pattern" : "log4j.properties"
-    },
-    {
-      "pattern" : "org/slf4j/impl/StaticLoggerBinder.class"
-    }
+  "resources" : {
+    "includes" : [
+      {
+        "pattern" : "\\Qlog4j.properties\\E"
+      },
+      {
+        "pattern" : "\\Qorg/slf4j/impl/StaticLoggerBinder.class\\E"
+      }
+    ]
+  },
+  "bundles" : [
   ]
 }

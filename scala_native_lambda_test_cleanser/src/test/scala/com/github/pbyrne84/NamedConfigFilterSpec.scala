@@ -9,14 +9,14 @@ class NamedConfigFilterSpec extends BaseSpec {
       val reflectConfigContents = getResourceContents("reflect-config.json")
       val reflectConfigJson = parseJson(reflectConfigContents)
 
-      NamedConfigFilter.filterOutConfigs(reflectConfigContents, List.empty) shouldBe Right(reflectConfigJson)
+      NamedConfigFilter.filterOutReflectConfigs(reflectConfigContents, List.empty) shouldBe Right(reflectConfigJson)
     }
 
     "return the same contents for serialization config when no filters are passed" in {
       val serializationConfigContents = getResourceContents("serialization-config.json")
       val serializationConfigJson = parseJson(serializationConfigContents)
 
-      NamedConfigFilter.filterOutConfigs(serializationConfigContents, List.empty) shouldBe Right(
+      NamedConfigFilter.filterOutSerializeConfigs(serializationConfigContents, List.empty) shouldBe Right(
         serializationConfigJson
       )
     }
@@ -67,7 +67,7 @@ class NamedConfigFilterSpec extends BaseSpec {
           |]
           |""".stripMargin)
 
-      NamedConfigFilter.filterOutConfigs(configJson.spaces2, List("java.io.P.*", "java.lang.*")) shouldBe Right(
+      NamedConfigFilter.filterOutReflectConfigs(configJson.spaces2, List("java.io.P.*", "java.lang.*")) shouldBe Right(
         expected
       )
 

@@ -10,3 +10,5 @@ out/
 dist/
 graalvm-scala-lambda
 scala_native_lambda.zip
+*.dll
+*.exe

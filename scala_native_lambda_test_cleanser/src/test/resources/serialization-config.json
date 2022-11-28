@@ -1,149 +1,155 @@
-[
-  {
-    "name": "scala.runtime.ModuleSerializationProxy"
-  },
-  {
-    "name": "sbt.ForkTags"
-  },
-  {
-    "name": "sbt.testing.TestSelector"
-  },
-  {
-    "name": "org.scalatest.ConfigMap"
-  },
-  {
-    "name": "org.scalatest.events.ScopeOpened"
-  },
-  {
-    "name": "sbt.testing.OptionalThrowable"
-  },
-  {
-    "name": "sbt.ForkConfiguration"
-  },
-  {
-    "name": "scala.collection.generic.DefaultSerializationProxy"
-  },
-  {
-    "name": "scala.collection.immutable.VectorImpl"
-  },
-  {
-    "name": "sbt.testing.TaskDef"
-  },
-  {
-    "name": "java.lang.Enum"
-  },
-  {
-    "name": "java.lang.Long"
-  },
-  {
-    "name": "[Lsbt.testing.Selector;"
-  },
-  {
-    "name": "org.scalatest.events.IndentedText"
-  },
-  {
-    "name": "scala.collection.IterableFactory$ToFactory"
-  },
-  {
-    "name": "org.scalatest.events.SuiteCompleted"
-  },
-  {
-    "name": "scala.Some"
-  },
-  {
-    "name": "scala.collection.immutable.BigVector"
-  },
-  {
-    "name": "org.scalatest.events.MotionToSuppress$"
-  },
-  {
-    "name": "sbt.ForkMain$ForkEvent"
-  },
-  {
-    "name": "scala.collection.immutable.Map$EmptyMap$"
-  },
-  {
-    "name": "org.scalatest.events.LineInFile"
-  },
-  {
-    "name": "org.scalatest.events.TopOfClass"
-  },
-  {
-    "name": "org.scalatest.events.Summary"
-  },
-  {
-    "name": "org.scalatest.events.RunCompleted"
-  },
-  {
-    "name": "org.scalatest.events.Ordinal"
-  },
-  {
-    "name": "[I"
-  },
-  {
-    "name": "[Lsbt.testing.TaskDef;"
-  },
-  {
-    "name": "org.scalatest.events.TestSucceeded"
-  },
-  {
-    "name": "scala.collection.immutable.Vector$"
-  },
-  {
-    "name": "org.scalatest.events.TestStarting"
-  },
-  {
-    "name": "java.lang.String"
-  },
-  {
-    "name": "java.lang.Number"
-  },
-  {
-    "name": "sbt.testing.Status"
-  },
-  {
-    "name": "scala.collection.immutable.Vector0$"
-  },
-  {
-    "name": "sbt.testing.SuiteSelector"
-  },
-  {
-    "name": "org.scalatest.events.NameInfo"
-  },
-  {
-    "name": "org.scalatest.events.ScopeClosed"
-  },
-  {
-    "name": "scala.Option"
-  },
-  {
-    "name": "org.scalatest.events.Location"
-  },
-  {
-    "name": "scala.None$"
-  },
-  {
-    "name": "org.scalatest.events.Event"
-  },
-  {
-    "name": "org.scalatest.events.Formatter"
-  },
-  {
-    "name": "sbt.ForkMain$SubclassFingerscan"
-  },
-  {
-    "name": "scala.collection.immutable.Vector"
-  },
-  {
-    "name": "[Ljava.lang.Object;"
-  },
-  {
-    "name": "org.scalatest.events.RunStarting"
-  },
-  {
-    "name": "org.scalatest.events.SuiteStarting"
-  },
-  {
-    "name": "[Lsbt.ForkMain$ForkEvent;"
-  }
-]
+{
+  "types":[
+    {
+      "name":"int[]"
+    },
+    {
+      "name":"java.lang.Enum"
+    },
+    {
+      "name":"java.lang.Long"
+    },
+    {
+      "name":"java.lang.Number"
+    },
+    {
+      "name":"java.lang.Object[]"
+    },
+    {
+      "name":"java.lang.String"
+    },
+    {
+      "name":"org.scalatest.ConfigMap"
+    },
+    {
+      "name":"org.scalatest.events.Event"
+    },
+    {
+      "name":"org.scalatest.events.Formatter"
+    },
+    {
+      "name":"org.scalatest.events.IndentedText"
+    },
+    {
+      "name":"org.scalatest.events.LineInFile"
+    },
+    {
+      "name":"org.scalatest.events.Location"
+    },
+    {
+      "name":"org.scalatest.events.MotionToSuppress$"
+    },
+    {
+      "name":"org.scalatest.events.NameInfo"
+    },
+    {
+      "name":"org.scalatest.events.Ordinal"
+    },
+    {
+      "name":"org.scalatest.events.RunCompleted"
+    },
+    {
+      "name":"org.scalatest.events.RunStarting"
+    },
+    {
+      "name":"org.scalatest.events.ScopeClosed"
+    },
+    {
+      "name":"org.scalatest.events.ScopeOpened"
+    },
+    {
+      "name":"org.scalatest.events.SuiteCompleted"
+    },
+    {
+      "name":"org.scalatest.events.SuiteStarting"
+    },
+    {
+      "name":"org.scalatest.events.Summary"
+    },
+    {
+      "name":"org.scalatest.events.TestStarting"
+    },
+    {
+      "name":"org.scalatest.events.TestSucceeded"
+    },
+    {
+      "name":"org.scalatest.events.TopOfClass"
+    },
+    {
+      "name":"sbt.ForkConfiguration"
+    },
+    {
+      "name":"sbt.ForkMain$ForkEvent"
+    },
+    {
+      "name":"sbt.ForkMain$ForkEvent[]"
+    },
+    {
+      "name":"sbt.ForkMain$SubclassFingerscan"
+    },
+    {
+      "name":"sbt.ForkTags"
+    },
+    {
+      "name":"sbt.testing.OptionalThrowable"
+    },
+    {
+      "name":"sbt.testing.Selector[]"
+    },
+    {
+      "name":"sbt.testing.Status"
+    },
+    {
+      "name":"sbt.testing.SuiteSelector"
+    },
+    {
+      "name":"sbt.testing.TaskDef"
+    },
+    {
+      "name":"sbt.testing.TaskDef[]"
+    },
+    {
+      "name":"sbt.testing.TestSelector"
+    },
+    {
+      "name":"scala.None$"
+    },
+    {
+      "name":"scala.Option"
+    },
+    {
+      "name":"scala.Some"
+    },
+    {
+      "name":"scala.collection.IterableFactory$ToFactory"
+    },
+    {
+      "name":"scala.collection.generic.DefaultSerializationProxy"
+    },
+    {
+      "name":"scala.collection.immutable.BigVector"
+    },
+    {
+      "name":"scala.collection.immutable.Map$EmptyMap$"
+    },
+    {
+      "name":"scala.collection.immutable.Vector"
+    },
+    {
+      "name":"scala.collection.immutable.Vector$"
+    },
+    {
+      "name":"scala.collection.immutable.Vector0$"
+    },
+    {
+      "name":"scala.collection.immutable.VectorImpl"
+    },
+    {
+      "name":"scala.runtime.ModuleSerializationProxy"
+    }
+  ],
+  "lambdaCapturingTypes":[
+  ],
+  "proxies":[
+  ]
+}

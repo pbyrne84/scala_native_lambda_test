@@ -1,0 +1,62 @@
+{
+  "types" : [
+    {
+      "name" : "int[]"
+    },
+    {
+      "name" : "java.lang.Enum"
+    },
+    {
+      "name" : "java.lang.Long"
+    },
+    {
+      "name" : "java.lang.Number"
+    },
+    {
+      "name" : "java.lang.Object[]"
+    },
+    {
+      "name" : "java.lang.String"
+    },
+    {
+      "name" : "scala.None$"
+    },
+    {
+      "name" : "scala.Option"
+    },
+    {
+      "name" : "scala.Some"
+    },
+    {
+      "name" : "scala.collection.IterableFactory$ToFactory"
+    },
+    {
+      "name" : "scala.collection.generic.DefaultSerializationProxy"
+    },
+    {
+      "name" : "scala.collection.immutable.BigVector"
+    },
+    {
+      "name" : "scala.collection.immutable.Map$EmptyMap$"
+    },
+    {
+      "name" : "scala.collection.immutable.Vector"
+    },
+    {
+      "name" : "scala.collection.immutable.Vector$"
+    },
+    {
+      "name" : "scala.collection.immutable.Vector0$"
+    },
+    {
+      "name" : "scala.collection.immutable.VectorImpl"
+    },
+    {
+      "name" : "scala.runtime.ModuleSerializationProxy"
+    }
+  ],
+  "lambdaCapturingTypes" : [
+  ],
+  "proxies" : [
+  ]
+}
