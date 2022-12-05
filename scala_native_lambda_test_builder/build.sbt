@@ -11,20 +11,30 @@ val testcontainersScalaVersion = "0.40.11"
 
 ThisBuild / assemblyMergeStrategy := {
   case "application.conf" => MergeStrategy.concat
+  case PathList("module-info.class") => MergeStrategy.discard
+  case PathList("META-INF", "versions", xs @ _, "module-info.class") => MergeStrategy.discard
   case x =>
     val oldStrategy = (ThisBuild / assemblyMergeStrategy).value
     oldStrategy(x)
 }
 
+val circeVersion = "0.14.3"
+
 //native-image-agent
 libraryDependencies ++= Vector(
   /*  "software.amazon.awssdk" % "auth" % "2.18.25",
   "software.amazon.awssdk" % "lambda" % "2.18.25",*/
-  "org.slf4j" % "slf4j-log4j12" % "1.7.30",
-  "org.slf4j" % "jcl-over-slf4j" % "1.7.30",
-  "org.apache.logging.log4j" % "log4j-api" % "2.13.0",
-  "org.apache.logging.log4j" % "log4j-core" % "2.13.0",
+
+  "io.microlam" % "slf4j-simple-lambda" % "2.0.3_1",
+  "org.slf4j" % "slf4j-api" % "2.0.5",
+  "org.slf4j" % "log4j-over-slf4j" % "2.0.5",
+  "com.amazonaws" % "aws-lambda-java-core" % "1.2.2",
+  "org.apache.logging.log4j" % "log4j-api" % "2.19.0",
+  //"com.amazonaws" % "aws-java-sdk-lambda" % "1.12.353",
+//  "com.amazonaws" % "aws-java-sdk-cloudwatch" % "1.12.353",
   "com.amazonaws" % "aws-java-sdk-core" % "1.12.350" % Test,
+  "io.circe" %% "circe-parser" % circeVersion,
+  "io.circe" %% "circe-generic" % circeVersion,
   "org.scalatest" %% "scalatest" % "3.2.14" % Test,
   "com.dimafeng" %% "testcontainers-scala-scalatest" % testcontainersScalaVersion % "test",
   "com.dimafeng" %% "testcontainers-scala-localstack" % testcontainersScalaVersion % "test"
