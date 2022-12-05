@@ -9,33 +9,7 @@
     "name" : "[Lscala.Tuple2;"
   },
   {
-    "name" : "java.beans.PropertyVetoException"
-  },
-  {
     "name" : "java.lang.ClassValue"
-  },
-  {
-    "name" : "java.lang.Object",
-    "queryAllPublicMethods" : true
-  },
-  {
-    "name" : "java.lang.ObjectBeanInfo"
-  },
-  {
-    "name" : "java.lang.ObjectCustomizer"
-  },
-  {
-    "name" : "java.lang.String"
-  },
-  {
-    "name" : "java.lang.Thread",
-    "methods" : [
-      {
-        "name" : "getContextClassLoader",
-        "parameterTypes" : [
-        ]
-      }
-    ]
   },
   {
     "name" : "java.lang.invoke.VarHandle",
@@ -59,67 +33,6 @@
         ]
       }
     ]
-  },
-  {
-    "name" : "org.apache.log4j.Appender"
-  },
-  {
-    "name" : "org.apache.log4j.Category"
-  },
-  {
-    "name" : "org.apache.log4j.ConsoleAppender",
-    "methods" : [
-      {
-        "name" : "<init>",
-        "parameterTypes" : [
-        ]
-      }
-    ]
-  },
-  {
-    "name" : "org.apache.log4j.Layout",
-    "queryAllPublicMethods" : true
-  },
-  {
-    "name" : "org.apache.log4j.LayoutBeanInfo"
-  },
-  {
-    "name" : "org.apache.log4j.LayoutCustomizer"
-  },
-  {
-    "name" : "org.apache.log4j.Log4jLoggerFactory"
-  },
-  {
-    "name" : "org.apache.log4j.Logger"
-  },
-  {
-    "name" : "org.apache.log4j.PatternLayout",
-    "queryAllPublicMethods" : true,
-    "methods" : [
-      {
-        "name" : "<init>",
-        "parameterTypes" : [
-        ]
-      },
-      {
-        "name" : "setConversionPattern",
-        "parameterTypes" : [
-          "java.lang.String"
-        ]
-      }
-    ]
-  },
-  {
-    "name" : "org.apache.log4j.PatternLayoutBeanInfo"
-  },
-  {
-    "name" : "org.apache.log4j.PatternLayoutCustomizer"
-  },
-  {
-    "name" : "org.apache.log4j.helpers.Loader"
-  },
-  {
-    "name" : "org.apache.log4j.spi.OptionHandler"
   },
   {
     "name" : "sun.security.provider.SHA",
