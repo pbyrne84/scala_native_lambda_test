@@ -43,5 +43,5 @@ jobs:
           ls -l
           date
           date +%s%N | cut -b1-13
-          ./graalvm-scala-lambda
+          ./graalvm-scala-lambda "$(cat deployable/exampleSqsMessage.json)"
           date +%s%N | cut -b1-13
