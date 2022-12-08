@@ -27,15 +27,33 @@ import java.io.PrintStream
 }
  */
 
+final case class NoMessagePassedException() extends RuntimeException("no message was passed at first position")
+
 object Main {
 
-  private val logger: Logger = LoggerFactory.getLogger("Main")
+  private val logger: Logger = LoggerFactory.getLogger(this.getClass.getSimpleName)
 
   def main(args: Array[String]): Unit = {
     logger.debug(s"mooo")
     logger.info(s"I haz cheezeburgers ${args.mkString(", ")}")
     logger.error("test error", new RuntimeException("a", new RuntimeException("b")))
 
-    println("I haz more cheeze burgers")
+    val message = args.mkString(", ").trim
+    if (message.nonEmpty) {
+      logger.info(s"processing message $message")
+      SqsOperation.processMessage(message) match {
+        case Left(error) =>
+          logger.error(s"failed processing message $message", error)
+
+          throw error
+
+        case Right(_) =>
+          logger.info(s"processed message $message")
+      }
+    } else {
+      logger.error("No message passed")
+      throw NoMessagePassedException()
+    }
+
   }
 }
