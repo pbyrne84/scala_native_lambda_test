@@ -30,7 +30,7 @@ libraryDependencies ++= Vector(
   "org.slf4j" % "log4j-over-slf4j" % "2.0.5",
   "com.amazonaws" % "aws-lambda-java-core" % "1.2.2",
   "org.apache.logging.log4j" % "log4j-api" % "2.19.0",
-  //"com.amazonaws" % "aws-java-sdk-lambda" % "1.12.353",
+  // "com.amazonaws" % "aws-java-sdk-lambda" % "1.12.353",
 //  "com.amazonaws" % "aws-java-sdk-cloudwatch" % "1.12.353",
   "com.amazonaws" % "aws-java-sdk-core" % "1.12.350" % Test,
   "io.circe" %% "circe-parser" % circeVersion,
@@ -90,19 +90,19 @@ nativeImageOptions ++= List(
   "--no-fallback",
   // "--allow-incomplete-classpath",
   //  "--report-unsupported-elements-at-runtime",
-  //"--static",
+  // "--static",
   "-H:ConfigurationFileDirectories=src/main/resources/META-INF/native-image"
 )
 
 Test / testOptions ++= List(
-  Tests.Cleanup(
-    () =>
-      (for {
-        _ <- CleanReflectionConfig.filterAndRewrite(includeRegexes = List.empty,
-                                                    bundleRegexes = List(".*ScalaTestBundle.*"),
-                                                    nameRegexes =
-                                                      List("org.scalatest.*", "(.{0,2})sbt.*", "com.dimafeng.*"))
-      } yield true).left
-        .map(error => throw error)
+  Tests.Cleanup(() =>
+    (for {
+      _ <- CleanReflectionConfig.filterAndRewrite(
+        includeRegexes = List.empty,
+        bundleRegexes = List(".*ScalaTestBundle.*"),
+        nameRegexes = List("org.scalatest.*", "(.{0,2})sbt.*", "com.dimafeng.*")
+      )
+    } yield true).left
+      .map(error => throw error)
   )
 )

@@ -1,5 +1,5 @@
 FROM amazonlinux:2
-RUN yum update
+RUN yum update -y
 RUN yum install -y unzip zip tar sudo
 RUN curl -s "https://get.sdkman.io" | bash
 RUN pwd

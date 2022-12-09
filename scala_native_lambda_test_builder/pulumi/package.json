@@ -1,6 +1,6 @@
 {
     "name": "pulum",
-    "main": "index.ts",
+    "main": "buildEnvironment.ts",
     "devDependencies": {
         "@types/node": "^14"
     },

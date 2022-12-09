@@ -1,3 +1,4 @@
+### Cold start
 2022-12-09T12:00:52.956+00:00	xxxxxxxxxx
 2022-12-09T12:00:52.958+00:00	xxxxxxxxxb
 2022-12-09T12:00:52.980+00:00	START RequestId: d3e0779a-5302-5e81-ab07-2b9776a557ad Version: $LATEST
@@ -16,6 +17,7 @@
 2022-12-09T12:00:53.437+00:00	END RequestId: d3e0779a-5302-5e81-ab07-2b9776a557ad
 2022-12-09T12:00:53.437+00:00	REPORT RequestId: d3e0779a-5302-5e81-ab07-2b9776a557ad Duration: 457.54 ms Billed Duration: 489 ms Memory Size: 512 MB Max Memory Used: 45 MB Init Duration: 30.55 ms
 
+### Warm start
 2022-12-09T12:02:34.810+00:00	START RequestId: 6968b141-7b46-5c64-a8fd-ed4c5d54d369 Version: $LATEST
 2022-12-09T12:02:34.811+00:00	xxxxxxxxxc
 2022-12-09T12:02:34.814+00:00	xxxxxxxxxd
