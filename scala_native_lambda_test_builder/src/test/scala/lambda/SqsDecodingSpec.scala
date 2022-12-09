@@ -13,7 +13,7 @@ class SqsDecodingSpec extends BaseSpec {
 
   "SqsDecoding" can {
     "decode a single message" should {
-      "the message body is a simply string" in {
+      "when the message body is a simply string" in {
         val bodyString = "I, am, the, one, and, only"
         val json = createMessageJson(s"\"$bodyString\"")
 
@@ -24,7 +24,7 @@ class SqsDecodingSpec extends BaseSpec {
         )
       }
 
-      "the message body is encoded json of an object that can be a case class" in {
+      "when the message body is encoded json of an object that can be a case class" in {
         val exampleBody = ExampleBody(name = "Unknown")
         // playing the add the backslashes game is always fun
         val encodedBody = "\"{\\n  \\\"name\\\" : \\\"Unknown\\\"\\n}\""
@@ -96,7 +96,6 @@ class SqsDecodingSpec extends BaseSpec {
             |    ]
             |}
             |""".stripMargin
-
 
         println(amazonMessages)
 

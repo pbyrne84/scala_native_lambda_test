@@ -35,8 +35,6 @@ const lambdaRoleArgs : RoleArgs = {
     name:             "lambda-role",
     assumeRolePolicy: assumeRolePolicy,
     path:             "/"
-    /*,
-    managedPolicyArns: ["arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"]*/
 }
 
 

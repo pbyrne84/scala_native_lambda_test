@@ -44,12 +44,14 @@ object CleanNativeImageConf {
     }.toEither
   }
 
-  private def filterValuesFromResourceConfig(resourceConfig: ResourceConfig,
-                                             invalidBundlePatterns: List[String]): Json = {
+  private def filterValuesFromResourceConfig(
+      resourceConfig: ResourceConfig,
+      invalidBundlePatterns: List[String]
+  ): Json = {
     resourceConfig
       .copy(
-        resources = resourceConfig.resources.filter(
-          resourceBundle => !invalidBundlePatterns.exists(regexPattern => resourceBundle.pattern.matches(regexPattern))
+        resources = resourceConfig.resources.filter(resourceBundle =>
+          !invalidBundlePatterns.exists(regexPattern => resourceBundle.pattern.matches(regexPattern))
         )
       )
       .asJson
@@ -81,6 +83,7 @@ object CleanNativeImageConf {
         nameJson.as[String].map { name =>
           invalidRegexPatterns.exists(pattern => name.matches(pattern))
         } match {
+          // Something has gone very kooky at this point so may as well hard quit
           case Left(cause) => throw new RuntimeException(s"name json $nameJson could not convert to string", cause)
           case Right(matches) => matches
         }

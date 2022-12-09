@@ -4,23 +4,13 @@
 # RESPONSE=$($(echo "$_HANDLER" | cut -d. -f2) "$EVENT_DATA")
 # as println goes to cloudtrail etc.
 while true
+set -euo pipefail
 do
-  echo "xxxxxxxxxx"
   HEADERS="$(mktemp)"
-  echo "xxxxxxxxxb"
   EVENT_DATA=$(curl -sS -LD "$HEADERS" -X GET "http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/next")
-  echo "xxxxxxxxxc"
   REQUEST_ID=$(grep -Fi Lambda-Runtime-Aws-Request-Id "$HEADERS" | tr -d '[:space:]' | cut -d: -f2)
-  echo "xxxxxxxxxd"
-
-  if [ -z "${AWS_LAMBDA_RUNTIME_API}" ]; then
-    /usr/bin/aws-lambda-rie ./graalvm-scala-lambda -Xmx128m  $1
-    curl -sS -X POST "http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/$REQUEST_ID/response"  -d "aaaa"
-  else
-    set -euo pipefail
-    ./graalvm-scala-lambda -Xmx128m $EVENT_DATA
-    curl -sS -X POST "http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/$REQUEST_ID/response"  -d "bbbb $EVENT_DATA"
-  fi
+  ./graalvm-scala-lambda -Xmx128m $EVENT_DATA
+  curl -sS -X POST "http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/$REQUEST_ID/response"  -d "SUCCESS"
 done
 
 
