@@ -72,7 +72,7 @@ let functionArgs : FunctionArgs = {
     role:    lambdaRole.arn,
     runtime: "provided.al2",
     handler: "moomins",
-    memorySize: 512 // radically affects cold start time.
+    memorySize: 1024 // radically affects cold start time.
 };
 
 const lambda = new aws.lambda.Function( "test-lambda", functionArgs )
