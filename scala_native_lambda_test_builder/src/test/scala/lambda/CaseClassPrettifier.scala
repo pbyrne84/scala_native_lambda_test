@@ -24,8 +24,7 @@ object CaseClassPrettifier {
     classIsNonIterableProduct(v) || classIsIteratorContainingCaseClasses(v)
   }
 
-  /**
-    * Collections are case classes
+  /** Collections are case classes called ::
     * @param v
     * @return
     */
@@ -88,7 +87,7 @@ class CaseClassPrettifier {
     }
 
     instance match {
-      //Scala being kooky, Array is passable as Iterable but not matchable as iterable, probably casts on pass
+      // Scala being kooky, Array is passable as Iterable but not matchable as iterable, probably casts on pass
       case instances: Iterable[_] =>
         prettifyCollection(matchToIterableType(instances), instances)
 
